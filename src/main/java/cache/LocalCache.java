@@ -23,13 +23,16 @@ public class LocalCache {
         this.cache = CacheBuilder.newBuilder().maximumSize(1).build(loader);
     }
 
-    public int update(String key, Integer value) {
+    public void update(String key, Integer value) {
         this.cache.put(key, value);
-        return 1;
     }
 
     public int get(String key) {
         Integer value = this.cache.getIfPresent(key);
         return value != null ? value : NEW_SKU;
+    }
+
+    public void initialize(String key, Integer value) {
+        this.cache.put(key, value);
     }
 }
