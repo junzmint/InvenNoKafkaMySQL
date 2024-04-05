@@ -15,4 +15,12 @@ public class InventoryEvent {
     public RoutingContext getRc() {
         return rc;
     }
+
+    public void setRc(RoutingContext rc) {
+        this.rc = rc;
+    }
+
+    void clear() {
+        rc = null;
+    }
 }
