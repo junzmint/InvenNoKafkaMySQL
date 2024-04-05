@@ -4,6 +4,8 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 
+import javax.annotation.Nonnull;
+
 public class LocalCache {
     public static final int NEW_SKU = -1;
     private final LoadingCache<String, Integer> cache;
@@ -12,7 +14,8 @@ public class LocalCache {
         CacheLoader<String, Integer> loader;
         loader = new CacheLoader<String, Integer>() {
             @Override
-            public Integer load(String key) {
+            @Nonnull
+            public Integer load(@Nonnull String key) {
                 return 1;
             }
         };
@@ -26,10 +29,7 @@ public class LocalCache {
     }
 
     public int get(String key) {
-        try {
-            return this.cache.getIfPresent(key);
-        } catch (Exception e) {
-            return NEW_SKU;
-        }
+        Integer value = this.cache.getIfPresent(key);
+        return value != null ? value : NEW_SKU;
     }
 }
